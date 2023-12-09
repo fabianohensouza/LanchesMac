@@ -8,7 +8,6 @@ namespace LanchesMac.Controllers
     {
         public IActionResult Index()
         {
-            TempData["Name"] = "FHSouza";
             return View();
         }
 
