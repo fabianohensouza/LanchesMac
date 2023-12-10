@@ -1,4 +1,6 @@
-﻿using LanchesMac.Repositories.Interfaces;
+﻿using LanchesMac.Models;
+using LanchesMac.Repositories.Interfaces;
+using LanchesMac.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanchesMac.Controllers
@@ -16,9 +18,14 @@ namespace LanchesMac.Controllers
         {
             ViewData["Title"] = "Todos os lanches";
 
-            var lanches = _lancheRepository.Lanches;
+            //var lanches = _lancheRepository.Lanches;
+            //return View(lanches);
 
-            return View(lanches);
+            var lanchesListViewModel = new LanchesListViewModel();
+            lanchesListViewModel.Lanches = _lancheRepository.Lanches;
+            lanchesListViewModel.CategoriaAtual = "Categoria Atual";
+
+            return View(lanchesListViewModel);
         }
     }
 }
