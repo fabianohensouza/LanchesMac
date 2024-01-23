@@ -58,7 +58,7 @@ namespace LanchesMac.Controllers
 
             if (string.IsNullOrEmpty(searchString))
             {
-                lanches = _lancheRepository.Lanches.OrderBy(x => x.Categoria);
+                lanches = _lancheRepository.Lanches.OrderBy(x => x.CategoriaId);
                 categoriaAtual = "Todos os Lanches";
             }
             else
