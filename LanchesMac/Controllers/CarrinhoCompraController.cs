@@ -19,7 +19,7 @@ namespace LanchesMac.Controllers
 
         public IActionResult Index()
         {
-            var itens = _carrinhoCompra.GetCarrinhoCompraItems();
+            var itens = _carrinhoCompra.GetCarrinhoCompraItens();
 
             _carrinhoCompra.CarrinhoCompraItens = itens;
 
@@ -45,7 +45,7 @@ namespace LanchesMac.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult RemoverrItemCarrinho(int lancheId)
+        public IActionResult RemoverItemCarrinho(int lancheId)
         {
             var lancheSelecionado = _lancheRepository.Lanches
                                     .FirstOrDefault(l => l.LancheId == lancheId);

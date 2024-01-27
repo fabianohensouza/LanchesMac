@@ -27,7 +27,7 @@ namespace LanchesMac.Controllers
         public IActionResult Checkout(Pedido pedido)
         {
             int totalItensPedido = 0;
-            decimal precoTotalPedido = 0;
+            decimal precoTotalPedido = 0.0m;
 
             List<CarrinhoCompraItem> itens = _carrinhoCompra.GetCarrinhoCompraItens();
             _carrinhoCompra.CarrinhoCompraItens = itens;
