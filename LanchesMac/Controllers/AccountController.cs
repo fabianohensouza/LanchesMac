@@ -52,5 +52,39 @@ namespace LanchesMac.Controllers
             ModelState.AddModelError("", "Falha ao realizar o login");
             return View(loginVM);
         }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel registroVM)
+        {
+            if (ModelState.IsValid)
+            {
+                if (registroVM.Password != registroVM.ConfirmPassword)
+                {
+                    this.ModelState.AddModelError("Registro", "As senhas não coincidem");
+                    return View(registroVM);
+                }
+
+                var user = new IdentityUser { UserName = registroVM.Username };
+                var result = await _userManager.CreateAsync(user, registroVM.Password);
+
+                if (result.Succeeded)
+                {
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    this.ModelState.AddModelError("Registro", "Falha ao registrar o usuário");
+                }
+            }
+            return View(registroVM);
+        }
+
     }
 }
