@@ -46,7 +46,7 @@ namespace LanchesMac.Services
                 user.NormalizedEmail = "USUARIO@LOCALHOST";
                 user.EmailConfirmed = true;
                 user.LockoutEnabled = false;
-                user.UserName = Guid.NewGuid().ToString();
+                user.SecurityStamp = Guid.NewGuid().ToString();
 
                 IdentityResult userResult = _userManager.CreateAsync(user, "Test@2002").Result;
 
@@ -64,7 +64,7 @@ namespace LanchesMac.Services
                 user.NormalizedEmail = "ADMIN@LOCALHOST";
                 user.EmailConfirmed = true;
                 user.LockoutEnabled = false;
-                user.UserName = Guid.NewGuid().ToString();
+                user.SecurityStamp = Guid.NewGuid().ToString();
 
                 IdentityResult userResult = _userManager.CreateAsync(user, "Test@2002").Result;
 
