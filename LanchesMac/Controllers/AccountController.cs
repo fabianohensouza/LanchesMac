@@ -1,6 +1,7 @@
 ﻿using LanchesMac.ViewModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
 
 namespace LanchesMac.Controllers
 {
@@ -22,7 +23,7 @@ namespace LanchesMac.Controllers
         {
             return View(new LoginViewModel()
             {
-                ReturnUrl = returnUrl
+                ReturnUrl = HttpUtility.UrlDecode(returnUrl)
             });
         }
 
@@ -45,6 +46,7 @@ namespace LanchesMac.Controllers
                     {
                         return RedirectToAction("Index", "Home");
                     }
+
                     return RedirectToAction(loginVM.ReturnUrl);
                 }
             }
