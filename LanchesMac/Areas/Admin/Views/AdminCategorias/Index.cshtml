@@ -8,7 +8,19 @@
 
 <p>
     <a asp-action="Create">Criar Nova Categoria</a>
-</p>
+</p
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form class="navbar-form navbar-right" asp-area="Admin" asp-controller="AdminCategorias" asp-action="Index" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Buscar categorias" name="searchString" value="@ViewData["searchString"]">
+            </div>
+        </form>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>

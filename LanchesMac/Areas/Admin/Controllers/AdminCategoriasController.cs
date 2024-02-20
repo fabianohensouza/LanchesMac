@@ -18,9 +18,18 @@ namespace LanchesMac.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminCategorias
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? searchString)
         {
-            return View(await _context.Categorias.ToListAsync());
+            if (string.IsNullOrEmpty(searchString))
+            {
+                return View(await _context.Categorias.ToListAsync());
+            }
+
+            return View(await _context.Categorias
+                        .Where(x => x.CategoriaNome
+                        .ToLower()
+                        .Contains(searchString.ToLower()))
+                        .ToListAsync());
         }
 
         // GET: Admin/AdminCategorias/Details/5

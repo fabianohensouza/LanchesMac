@@ -5,6 +5,7 @@ namespace LanchesMac.Models
 {
     public class Pedido
     {
+        [Display(Name = "Pedido")]
         public int PedidoId { get; set; }
 
         [Required(ErrorMessage = "Informe o nome")]

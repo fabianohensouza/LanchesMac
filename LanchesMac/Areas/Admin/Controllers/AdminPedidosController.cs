@@ -3,6 +3,7 @@ using LanchesMac.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LanchesMac.Areas.Admin.Controllers
 {
@@ -18,9 +19,22 @@ namespace LanchesMac.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminPedidos
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Pedidos.ToListAsync());
+        //}
+        public async Task<IActionResult> Index(string? searchString)
         {
-            return View(await _context.Pedidos.ToListAsync());
+            int number;
+
+            if (!string.IsNullOrEmpty(searchString) && int.TryParse(searchString, out number))
+            {
+                return View(await _context.Pedidos
+                        .Where(x => x.PedidoId == number)
+                        .ToListAsync());
+            }
+            
+            return View(await _context.Pedidos.ToListAsync());            
         }
 
         // GET: Admin/AdminPedidos/Details/5

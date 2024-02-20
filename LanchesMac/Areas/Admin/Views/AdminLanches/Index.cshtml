@@ -4,11 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Listar Lanches</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form class="navbar-form navbar-right" asp-area="Admin" asp-controller="AdminLanches" asp-action="Index" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Buscar produtos" name="searchString" value="@ViewData["searchString"]">
+            </div>
+        </form>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>

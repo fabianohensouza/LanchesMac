@@ -19,10 +19,17 @@ namespace LanchesMac.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminLanches
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? searchString)
         {
-            var appDbContext = _context.Lanches.Include(l => l.Categoria);
-            return View(await appDbContext.ToListAsync());
+            if (string.IsNullOrEmpty(searchString))
+            {
+                var appDbContext = _context.Lanches.Include(l => l.Categoria);
+                return View(await appDbContext.ToListAsync());
+            }
+            
+            var appDbContextSearch = _context.Lanches.Include(l => l.Categoria)
+                .Where(x => x.Nome.ToLower().Contains(searchString.ToLower()));
+            return View(await appDbContextSearch.ToListAsync());
         }
 
         // GET: Admin/AdminLanches/Details/5

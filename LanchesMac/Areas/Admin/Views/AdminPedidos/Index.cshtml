@@ -9,14 +9,25 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<div class="row">
+    <div class="col-md-4">
+        <form class="navbar-form navbar-right" asp-area="Admin" asp-controller="AdminPedidos" asp-action="Index" method="get">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Buscar pedidos" name="searchString" value="@ViewData["searchString"]">
+            </div>
+        </form>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nome)
+                @Html.DisplayNameFor(model => model.PedidoId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sobrenome)
+                @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Endereco1)
@@ -52,9 +63,11 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Nome)
+                @Html.DisplayFor(modelItem => item.PedidoId)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+                /
                 @Html.DisplayFor(modelItem => item.Sobrenome)
             </td>
             <td>
