@@ -18,23 +18,35 @@ namespace LanchesMac.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/AdminPedidos
-        //public async Task<IActionResult> Index()
+        //// GET: Admin/AdminPedidos
+        //public async Task<IActionResult> Index(string? searchString)
         //{
+        //    int number;
+
+        //    if (!string.IsNullOrEmpty(searchString) && int.TryParse(searchString, out number))
+        //    {
+        //        return View(await _context.Pedidos
+        //                .Where(x => x.PedidoId == number)
+        //                .ToListAsync());
+        //    }
+
         //    return View(await _context.Pedidos.ToListAsync());
         //}
-        public async Task<IActionResult> Index(string? searchString)
+
+        public async Task<IActionResult> Index(
+            string filter,
+            int pageIndex = 1,
+            string sort = "PedidoId")
         {
             int number;
+            var result = _context.Pedidos.AsNoTracking().AsQueryable();
 
-            if (!string.IsNullOrEmpty(searchString) && int.TryParse(searchString, out number))
+            if (!string.IsNullOrWhiteSpace(filter) && int.TryParse(filter, out number))
             {
-                return View(await _context.Pedidos
-                        .Where(x => x.PedidoId == number)
-                        .ToListAsync());
+                result = result.Where(x => x.PedidoId == number);
             }
-            
-            return View(await _context.Pedidos.ToListAsync());            
+
+            return View(await _context.Pedidos.ToListAsync());
         }
 
         // GET: Admin/AdminPedidos/Details/5
