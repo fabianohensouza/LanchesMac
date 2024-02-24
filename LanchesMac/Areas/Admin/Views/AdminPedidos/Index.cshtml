@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LanchesMac.Models.Pedido>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<LanchesMac.Models.Pedido>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,7 +14,7 @@
     <div class="col-md-4">
         <form class="navbar-form navbar-right" asp-area="Admin" asp-controller="AdminPedidos" asp-action="Index" method="get">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Buscar pedidos" name="searchString" value="@ViewData["searchString"]">
+                <input type="text" class="form-control" placeholder="Buscar pedidos" name="filter" value="@ViewData["filter"]">
             </div>
         </form>
     </div>

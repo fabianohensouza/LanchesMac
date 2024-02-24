@@ -3,6 +3,7 @@ using LanchesMac.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LanchesMac.Areas.Admin.Controllers
@@ -46,7 +47,10 @@ namespace LanchesMac.Areas.Admin.Controllers
                 result = result.Where(x => x.PedidoId == number);
             }
 
-            return View(await _context.Pedidos.ToListAsync());
+            var model = await PagingList.CreateAsync(result, 5, pageIndex, sort, "PedidoId");
+            model.RouteValue = new RouteValueDictionary { { "filter", filter } };
+
+            return View(model);
         }
 
         // GET: Admin/AdminPedidos/Details/5
