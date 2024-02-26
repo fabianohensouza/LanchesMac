@@ -10,7 +10,7 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<div class="row">
+@* <div class="row">
     <div class="col-md-4">
         <form class="navbar-form navbar-right" asp-area="Admin" asp-controller="AdminPedidos" asp-action="Index" method="get">
             <div class="form-group">
@@ -18,7 +18,19 @@
             </div>
         </form>
     </div>
+</div> *@
+
+<div class="row">
+    <div class="col-md-4">
+        <form class="form-inline" method="get">
+                <input class="form-control" placeholder="Buscar pedidos" name="filter" value="@Model.RouteValue["filter"]">             
+        </form>
+    </div>
 </div>
+
+<br />
+
+<strong>Total de Pedidos : @Model.TotalRecordCount</strong>
 
 <table class="table">
     <thead>
@@ -106,3 +118,7 @@
 }
     </tbody>
 </table>
+
+<div>
+    <vc:pager paging-list="@Model"></vc:pager>
+</div>
