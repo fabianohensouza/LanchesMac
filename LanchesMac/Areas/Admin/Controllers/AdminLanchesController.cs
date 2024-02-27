@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
 
 namespace LanchesMac.Areas.Admin.Controllers
 {
@@ -18,18 +19,26 @@ namespace LanchesMac.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: Admin/AdminLanches
-        public async Task<IActionResult> Index(string? searchString)
+        //// GET: Admin/AdminLanches
+        //public async Task<IActionResult> Index()
+        //{
+        //    var appDbContext = _context.Lanches.Include(l => l.Categoria);
+        //    return View(await appDbContext.ToListAsync());
+        //}
+
+        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort ="Nome")
         {
-            if (string.IsNullOrEmpty(searchString))
+            var resultado = _context.Lanches.Include(l => l.Categoria).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter))
             {
-                var appDbContext = _context.Lanches.Include(l => l.Categoria);
-                return View(await appDbContext.ToListAsync());
+                resultado = resultado.Where(p => p.Nome.Contains(filter));
             }
-            
-            var appDbContextSearch = _context.Lanches.Include(l => l.Categoria)
-                .Where(x => x.Nome.ToLower().Contains(searchString.ToLower()));
-            return View(await appDbContextSearch.ToListAsync());
+
+            var model = await PagingList.CreateAsync(resultado, 5, pageindex, sort, "Nome");
+            model.RouteValue = new RouteValueDictionary { { "filter", filter } };
+            return View(model);
+
         }
 
         // GET: Admin/AdminLanches/Details/5
@@ -54,7 +63,7 @@ namespace LanchesMac.Areas.Admin.Controllers
         // GET: Admin/AdminLanches/Create
         public IActionResult Create()
         {
-            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome");
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome");
             return View();
         }
 
@@ -71,7 +80,7 @@ namespace LanchesMac.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome", lanche.CategoriaId);
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome", lanche.CategoriaId);
             return View(lanche);
         }
 
@@ -88,7 +97,7 @@ namespace LanchesMac.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoriaId"] = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome", lanche.CategoriaId);
+            ViewBag.CategoriaId = new SelectList(_context.Categorias, "CategoriaId", "CategoriaNome", lanche.CategoriaId);
             return View(lanche);
         }
 
