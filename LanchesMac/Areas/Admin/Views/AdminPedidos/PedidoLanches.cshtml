@@ -1,4 +1,4 @@
-﻿@model PedidoLancheViewModel
+﻿@model LanchesMac.ViewModel.PedidoLancheViewModel
 
 @{
     ViewData["Title"] = "PedidoLanches";
@@ -8,45 +8,39 @@
 <h1>Lanches do Pedido</h1>
 <hr />
 
-<h4> Pedido : @Html.DisplayFor(model => @Model.Pedido.PedidoId)</h4>
-<h4> 
-    Cliente : @Html.DisplayFor(model => @Model.Pedido.Nome)
-              @Html.DisplayFor(model => @Model.Pedido.Sobrenome)
-</h4>
-<h4> Data : @Html.DisplayFor(model => @Model.Pedido.PedidoEnviado)</h4>
-<h4> Entrega : @Html.DisplayFor(model => Model.Pedido.PedidoEntregueEm)</h4>
-
-<hr />
+<h3>Pedido  :  @Html.DisplayFor(model => @Model.Pedido.PedidoId)</h3>
+<h3>
+    Cliente :  @Html.DisplayFor(model => @Model.Pedido.Nome)
+               @Html.DisplayFor(model => @Model.Pedido.Sobrenome)
+</h3>
+<h3>Data    :  @Html.DisplayFor(model => @Model.Pedido.PedidoEnviado)</h3>
+<h3>Entrega :  @Html.DisplayFor(model => @Model.Pedido.PedidoEntregueEm)</h3>
 
 <table class="table">
-@foreach (var item in Model.Pedido.PedidoItens)
+    @foreach (var item in @Model.Pedido.PedidoItens)
     {
-        totalPedido += (item.Lanche.Preco * item.Quantidade);
-
+        totalPedido += (@item.Lanche.Preco * @item.Quantidade);
         <tr>
-            <td align="left">
-                @Html.DisplayFor(modelItem => item.Lanche.Nome)
-            </td>
-            <td align="center">
-                <img src="@item.Lanche.ImagemUrl" class="img-fluid" height="100" width="100" />
+            <td align="right">
+                <h3>@Html.DisplayFor(modelItem => item.Lanche.Nome)</h3>
             </td>
             <td align="right">
-                @string.Format("{0:C}", item.Lanche.Nome)
+                <img src="@item.Lanche.ImagemUrl" class="img-fluid" height="100" width="100">
             </td>
             <td align="right">
-                @Html.DisplayFor(modelItem => item.Quantidade)
+                <h3>@string.Format("{0:C}", item.Lanche.Preco)</h3>
+            </td>
+            <td align="right">
+                <h3>(@Html.DisplayFor(modelItem => item.Quantidade))</h3>
             </td>
         </tr>
     }
-    
     <tr>
-        <td colspan="2">&nbsp;</td>
-        <td align="right">
-            <h3>Total do Pedido : @string.Format("{0:C}", totalPedido)</h3>
-        </td>
+            <td colspan="2">&nbsp;</td>
+            <td align="right">
+                <h3>Total do Pedido : @string.Format("{0:C}", @totalPedido)</h3>
+            </td>
     </tr>
 </table>
-
-<hr />
-
 <a asp-action="Index" class="btn btn-outline-info">Retornar</a>
+
