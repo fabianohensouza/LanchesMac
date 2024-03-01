@@ -1,6 +1,6 @@
 ﻿using LanchesMac.Context;
 using LanchesMac.Models;
-using LanchesMac.ViewModel;
+using LanchesMac.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
