@@ -35,7 +35,7 @@ public class Startup
         services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 
         services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
-        services.AddScoped<IRelatorioVendasServices, RelatorioVendasServices>();
+        services.AddScoped<RelatorioVendasServices>();
 
         services.AddAuthorization(options =>
         {
