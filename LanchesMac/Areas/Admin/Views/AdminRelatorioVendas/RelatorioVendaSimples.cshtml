@@ -13,7 +13,7 @@
                 <label for="minDate" class="col-lg-6 control-label">Data Final</label>
                 <input type="date" name="maxDate" class="form-control" value=@ViewData["maxDate"] />
             </div>
-            <button type="submit" class="btn btn-success">Filtrar</button>
+            <button type="submit" class="btn btn-success mt-2">Filtrar</button>
         </form>
     </div>
 </nav>
@@ -55,28 +55,28 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <th>
+                        <td>
                             @Html.DisplayFor(modelItem => item.PedidoId)
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Nome)
                             @Html.DisplayFor(modelItem => item.Sobrenome)
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.Telefone)
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.PedidoTotal)
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.TotalItensPedido)
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.PedidoEnviado)
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.PedidoEntregueEm)
-                        </th>
+                        </td>
                     </tr>
                 }
             </tbody>
