@@ -28,6 +28,9 @@ public class Startup
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
 
+        services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Home/AccessDenied");
+        services.Configure<ConfigurationImages>(Configuration.GetSection("ConfigurationImagesFolder"));
+
         services.AddTransient<ILancheRepository, LancheRepository>();
         services.AddTransient<ICategoriaRepository, CategoriaRepository>();
         services.AddTransient<IPedidoRepository, PedidoRepository>();
