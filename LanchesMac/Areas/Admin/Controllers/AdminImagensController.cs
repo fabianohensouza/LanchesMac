@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc;
 using System.Linq;
 
 namespace LanchesMac.Areas.Admin.Controllers
@@ -40,7 +41,7 @@ namespace LanchesMac.Areas.Admin.Controllers
                 return View(ViewData);
             }
 
-            long size = files.Sum(f => f.Length);
+            var size = (files.Sum(f => f.Length)) / 1024;
 
             var filePathsName = new List<string>();
 
@@ -64,11 +65,32 @@ namespace LanchesMac.Areas.Admin.Controllers
             }
 
             ViewData["Resultado"] = $"{files.Count} arquivos foram enviados, " +
-                                        $"con total de : {size} bytes";   
+                                        $"con total de : {size} MB";   
                 
             ViewBag.Arquivos = filePathsName;
 
             return View(ViewData);
+        }
+
+        public IActionResult GetImages()
+        {
+            FileManagerModel model = new FileManagerModel();
+
+            var userImagePath = Path.Combine(_webHostEnvironment.WebRootPath,
+                _myConfig.ProductImagesFolderName);
+
+            DirectoryInfo dir = new DirectoryInfo(userImagePath);
+
+            FileInfo[] files = dir.GetFiles();
+
+            if (files.Length == 0)
+            {
+                ViewData["Erro"] = $"Nenhum arquivo encontrado na pasta {userImagePath}";
+            }
+
+            model.Files = files;
+
+            return View(model);
         }
     }
 }
