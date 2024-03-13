@@ -80,8 +80,8 @@ namespace LanchesMac.Areas.Admin.Controllers
                 _myConfig.ProductImagesFolderName);
 
             DirectoryInfo dir = new DirectoryInfo(userImagePath);
-
             FileInfo[] files = dir.GetFiles();
+            model.PathImagesProduto = _myConfig.ProductImagesFolderName;
 
             if (files.Length == 0)
             {
@@ -91,6 +91,21 @@ namespace LanchesMac.Areas.Admin.Controllers
             model.Files = files;
 
             return View(model);
+        }
+
+        public IActionResult Deletefile(string fname)
+        {
+            var userImagePath = Path.Combine(_webHostEnvironment.WebRootPath,
+                _myConfig.ProductImagesFolderName + "\\", fname);
+
+            if (System.IO.File.Exists(userImagePath))
+            {
+                System.IO.File.Delete(userImagePath);
+
+                ViewData["Deletado"] = $"Arquivo(s) {userImagePath} deletado com sucesso!";
+            }
+
+            return View("index");
         }
     }
 }
