@@ -70,9 +70,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-CreateUserProfiles(app);
+//Replacing the bellow methods used in the Startup Class
 //seedUserRoleInitial.SeedRoles();
 //seedUserRoleInitial.SeedUsers();
+CreateUserProfiles(app);
 
 app.UseSession();
 
