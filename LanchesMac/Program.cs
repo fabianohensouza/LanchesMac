@@ -33,8 +33,7 @@ builder.Services.AddScoped<RelatorioVendasServices>();
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("Admin",
-        policy =>
+    options.AddPolicy("Admin",  policy =>
         {
             policy.RequireRole("Admin");
         });
