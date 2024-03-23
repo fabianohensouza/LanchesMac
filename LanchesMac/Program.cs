@@ -4,6 +4,7 @@ using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
 using LanchesMac.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ReflectionIT.Mvc.Paging;
@@ -79,21 +80,35 @@ app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
 
-    endpoints.MapControllerRoute(
-        name: "categoriaFiltro",
-        pattern: "Lanche/{action}/{categoria?}",
-        defaults: new { controller = "Lanche", action = "List" });
+app.MapControllerRoute(
+    name: "categoriaFiltro",
+    pattern: "Lanche/{action}/{categoria?}",
+    defaults: new { controller = "Lanche", action = "List" });
 
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-});
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+//Old approach, replaced in ASP0014
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//      name: "areas",
+//      pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+
+//    endpoints.MapControllerRoute(
+//        name: "categoriaFiltro",
+//        pattern: "Lanche/{action}/{categoria?}",
+//        defaults: new { controller = "Lanche", action = "List" });
+
+//    endpoints.MapControllerRoute(
+//        name: "default",
+//        pattern: "{controller=Home}/{action=Index}/{id?}");
+//});
 
 app.Run();
 
